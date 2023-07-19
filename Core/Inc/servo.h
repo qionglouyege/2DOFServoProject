@@ -8,6 +8,4 @@
 void initServoLoct(void);
 void writeServoLoct(uint16_t*);
 
-extern uint16_t servoLoct[2];
-
 #endif

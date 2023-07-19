@@ -1,16 +1,15 @@
-/*This file is used for cope with infrared singal*/
-
 #include "infremote.h"
 #include "main.h"
 #include "tim.h"
-#include "servo.h"
 
-uint8_t infraredState = INFRMT_WAIT_STATE;
-uint8_t exitTimes = 0;
-uint8_t receivedData[4] = {0b00000000u, 0b00000000u, 0b00000000u, 0b00000000u};
-uint8_t repeatTimes = 0;
-uint16_t levelPeriod = 0;
-uint8_t dataBit = 0;
+static uint8_t infraredState = INFRMT_WAIT_STATE;
+static uint8_t exitTimes = 0;
+static uint8_t receivedData[4] = {0b00000000u, 0b00000000u, 0b00000000u, 0b00000000u};
+static uint8_t repeatTimes = 0;
+static uint16_t levelPeriod = 0;
+static uint8_t dataBit = 0;
+
+extern uint16_t servoLoct[2];
 
 /*initialize infrared remote control variable
   if get wrong data, program return here*/
@@ -60,6 +59,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
         if(exitTimes == 65)
         {
             infraredState = INFRMT_WAIT_STATE;
+            repeatTimes ++;
             exitTimes = 0;
         }   
         break;
@@ -134,92 +134,97 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 }
 
 /*act different operation*/
-void infImplement(uint8_t* receivedData, uint8_t* repeatTimes, uint16_t* servoLoct)
+void infImplement()
 {
-    switch (*receivedData)
+    switch (*(receivedData + 2))
     {
-    case INFRMT_BUTTON_1:
-    for(; *repeatTimes > 0; (*repeatTimes) --)
-    {
-      HAL_GPIO_WritePin(LED_PIN_GPIO_Port, LED_PIN_Pin, SET);
-      HAL_Delay(100);
-      HAL_GPIO_WritePin(LED_PIN_GPIO_Port, LED_PIN_Pin, RESET);
-      HAL_Delay(100);
-    }
-      break;
+      case INFRMT_BUTTON_1:
+      for(; repeatTimes > 0;)
+      {
+        (repeatTimes) --;
+        HAL_GPIO_WritePin(LED_PIN_GPIO_Port, LED_PIN_Pin, SET);
+        HAL_Delay(100);
+        HAL_GPIO_WritePin(LED_PIN_GPIO_Port, LED_PIN_Pin, RESET);
+        HAL_Delay(100);
+      }
+        break;
 
-    case INFRMT_BUTTON_2:
-    for(; *repeatTimes > 0; (*repeatTimes) --)
-    {
-      HAL_GPIO_WritePin(LED_PIN_GPIO_Port, LED_PIN_Pin, SET);
-      HAL_Delay(200);
-      HAL_GPIO_WritePin(LED_PIN_GPIO_Port, LED_PIN_Pin, RESET);
-      HAL_Delay(200);
-    }
-      break;   
+      case INFRMT_BUTTON_2:
+      for(; repeatTimes > 0;)
+      {
+        (repeatTimes) --;
+        HAL_GPIO_WritePin(LED_PIN_GPIO_Port, LED_PIN_Pin, SET);
+        HAL_Delay(200);
+        HAL_GPIO_WritePin(LED_PIN_GPIO_Port, LED_PIN_Pin, RESET);
+        HAL_Delay(200);
+      }
+        break;   
 
-    case INFRMT_BUTTON_3:
-    for(; *repeatTimes > 0; (*repeatTimes) --)
-    {
-      HAL_GPIO_WritePin(LED_PIN_GPIO_Port, LED_PIN_Pin, SET);
-      HAL_Delay(300);
-      HAL_GPIO_WritePin(LED_PIN_GPIO_Port, LED_PIN_Pin, RESET);
-      HAL_Delay(300);
-    }
-      break; 
+      case INFRMT_BUTTON_3:
+      for(; repeatTimes > 0;)
+      {
+        (repeatTimes) --;
+        HAL_GPIO_WritePin(LED_PIN_GPIO_Port, LED_PIN_Pin, SET);
+        HAL_Delay(300);
+        HAL_GPIO_WritePin(LED_PIN_GPIO_Port, LED_PIN_Pin, RESET);
+        HAL_Delay(300);
+      }
+        break; 
 
-    case INFRMT_BUTTON_4:
-    for(; *repeatTimes > 0; (*repeatTimes) --)
-    {
-      HAL_GPIO_WritePin(LED_PIN_GPIO_Port, LED_PIN_Pin, SET);
-      HAL_Delay(400);
-      HAL_GPIO_WritePin(LED_PIN_GPIO_Port, LED_PIN_Pin, RESET);
-      HAL_Delay(400);
-    }
-      break; 
+      case INFRMT_BUTTON_4:
+      for(; repeatTimes > 0;)
+      {
+        (repeatTimes) --;
+        HAL_GPIO_WritePin(LED_PIN_GPIO_Port, LED_PIN_Pin, SET);
+        HAL_Delay(400);
+        HAL_GPIO_WritePin(LED_PIN_GPIO_Port, LED_PIN_Pin, RESET);
+        HAL_Delay(400);
+      }
+        break; 
 
-    case INFRMT_BUTTON_5:
-    for(; *repeatTimes > 0; (*repeatTimes) --)
-    {
-      HAL_GPIO_WritePin(LED_PIN_GPIO_Port, LED_PIN_Pin, SET);
-      HAL_Delay(500);
-      HAL_GPIO_WritePin(LED_PIN_GPIO_Port, LED_PIN_Pin, RESET);
-      HAL_Delay(500);
-    }
-      break; 
+      case INFRMT_BUTTON_5:
+      for(; repeatTimes > 0;)
+      {
+        (repeatTimes) --;
+        HAL_GPIO_WritePin(LED_PIN_GPIO_Port, LED_PIN_Pin, SET);
+        HAL_Delay(500);
+        HAL_GPIO_WritePin(LED_PIN_GPIO_Port, LED_PIN_Pin, RESET);
+        HAL_Delay(500);
+      }
+        break; 
 
-    case INFRMT_BUTTON_UP:
-    for(; *repeatTimes > 0; (*repeatTimes) --)
-    {
-      *(servoLoct + 1) += 20;
-      //HAL_Delay(50);
-    }
-      break;
+      case INFRMT_BUTTON_UP:
+      for(;repeatTimes > 0; )
+      {
+        (repeatTimes) --;
+        *(servoLoct + 1) += 100;
+      }
+        break;
 
-    case INFRMT_BUTTON_DOWN:
-    for(; *repeatTimes > 0; (*repeatTimes) --)
-    {
-      *(servoLoct + 1) -= 20;
-      //HAL_Delay(50);
-    }
-      break;
+      case INFRMT_BUTTON_DOWN:
+      for(; repeatTimes > 0; )
+      {
+        (repeatTimes) --;
+        *(servoLoct + 1) -= 100;
+      }
+        break;
 
-    case INFRMT_BUTTON_LEFT:
-    for(; *repeatTimes > 0; (*repeatTimes) --)
-    {
-      *(servoLoct + 0) -= 20;
-      //HAL_Delay(50);
-    }
-      break;            
+      case INFRMT_BUTTON_LEFT:
+      for(; repeatTimes > 0; )
+      {
+        (repeatTimes) --;
+        *(servoLoct + 0) -= 100;
+      }
+        break;            
 
-    case INFRMT_BUTTON_RIGHT:
-    for(; *repeatTimes > 0; (*repeatTimes) --)
-    {
-      *(servoLoct + 0) += 20;
-      //HAL_Delay(50);
-    }
-      break;  
-         
+      case INFRMT_BUTTON_RIGHT:
+      for(; repeatTimes > 0;)
+      {
+        (repeatTimes) --;
+        *(servoLoct + 0) += 100;
+      }
+        break;  
+
     default:
       break;
     }

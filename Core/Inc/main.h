@@ -32,6 +32,20 @@ extern "C" {
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
+#include "i2c.h"
+#include "tim.h"
+#include "usart.h"
+#include "gpio.h"
+
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <math.h>
+
+#include "servo.h"
+#include "infremote.h"
+#include "gyro.h"
+
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/

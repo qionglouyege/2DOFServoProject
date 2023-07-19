@@ -1,5 +1,3 @@
-/*This file is used for cope with infrared singal*/
-
 #ifndef _INFREMOTE_H_
 #define _INFREMOTE_H_
 #include "main.h"
@@ -23,22 +21,16 @@
 #define INFRMT_BUTTON_POUND     0xb0u
 #define INFRMT_BUTTON_UP        0x18u
 #define INFRMT_BUTTON_DOWN      0x4au
-#define INFRMT_BUTTON_RIGHT     0x5au
-#define INFRMT_BUTTON_LEFT      0x10u
+#define INFRMT_BUTTON_RIGHT     0x10u
+#define INFRMT_BUTTON_LEFT      0x5au
 #define INFRMT_BUTTON_OK        0x38u
 
 /*infrared remote control function declaration*/
 
 void infStateInit(void);
-void infImplement(uint8_t* , uint8_t*, uint16_t*);
+void infImplement(void);
 
 /*infrared remote control variable declaration*/
-
-extern uint8_t infraredState;       //datas tate or waiting state
-extern uint8_t exitTimes;           //level changes times, judge if state end
-extern uint8_t receivedData[4];     //storage received data, 32bit data, storaged in a 4 element array
-extern uint8_t repeatTimes;         //storage repeat time
-extern uint16_t levelPeriod;        //storage electric level period
-extern uint8_t dataBit;             
+         
 
 #endif
