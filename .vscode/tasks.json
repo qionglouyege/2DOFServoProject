@@ -1,0 +1,36 @@
+ {
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "compile",
+            "type": "shell",
+            "command": "make",
+            "args": [
+
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build",
+            "detail": "compiler: C:/MinGW/bin/gcc.exe"
+        },
+
+        {
+            "label": "download",
+            "type": "shell",
+            "command": "openocd",
+            "args": [
+                "-f", "interface/stlink-v2.cfg",
+                "-f", "target/stm32f1x-self.cfg",
+                "-c", "program build/2DOFServoProject.elf verify reset exit"
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build",
+            "detail": "compiler: C:/MinGW/bin/gcc.exe"
+        }
+    ]
+}

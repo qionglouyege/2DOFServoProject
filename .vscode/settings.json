@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "infremote.h": "c"
+    },
+    "cortex-debug.variableUseNaturalFormat": true
+}
