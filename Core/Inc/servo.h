@@ -6,6 +6,6 @@
 #define _SERVO_H_
 
 void initServoLoct(void);
-void writeServoLoct(uint16_t*);
+void writeServoLoct(void);
 
 #endif

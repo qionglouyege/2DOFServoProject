@@ -82,3 +82,13 @@ build/stm32f1xx_hal_uart.o
 build/usart.d
 build/usart.lst
 build/usart.o
+CAD/20230720加工.zip
+CAD/20230720加工/铝转接板.dwg
+CAD/20230720加工/转接板.STEP
+CAD/2D/铝转接板.dwg
+CAD/2D/转接板.DWG
+CAD/2D/转接板.SLDDRW
+CAD/3D/俯仰支架.SLDPRT
+CAD/3D/转接板.SLDPRT
+CAD/3D/转接板.STEP
+CAD/3D/装配.SLDASM

@@ -9,7 +9,7 @@ static uint8_t repeatTimes = 0;
 static uint16_t levelPeriod = 0;
 static uint8_t dataBit = 0;
 
-extern uint16_t servoLoct[2];
+extern float servoLoct[2];
 
 /*initialize infrared remote control variable
   if get wrong data, program return here*/
@@ -197,7 +197,7 @@ void infImplement()
       for(;repeatTimes > 0; )
       {
         (repeatTimes) --;
-        *(servoLoct + 1) += 100;
+        *(servoLoct + 1) += 20;
       }
         break;
 
@@ -205,7 +205,7 @@ void infImplement()
       for(; repeatTimes > 0; )
       {
         (repeatTimes) --;
-        *(servoLoct + 1) -= 100;
+        *(servoLoct + 1) -= 20;
       }
         break;
 
@@ -213,7 +213,7 @@ void infImplement()
       for(; repeatTimes > 0; )
       {
         (repeatTimes) --;
-        *(servoLoct + 0) -= 100;
+        *(servoLoct + 0) -= 25;
       }
         break;            
 
@@ -221,7 +221,7 @@ void infImplement()
       for(; repeatTimes > 0;)
       {
         (repeatTimes) --;
-        *(servoLoct + 0) += 100;
+        *(servoLoct + 0) += 25;
       }
         break;  
 

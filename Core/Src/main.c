@@ -49,8 +49,6 @@
 
 /* USER CODE BEGIN PV */
 
-extern uint16_t servoLoct[2];
-
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -109,6 +107,7 @@ int main(void)
 
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_4);
+  writeServoLoct();
   
   /* USER CODE END 2 */
 
@@ -120,7 +119,7 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
     infImplement();
-    writeServoLoct(servoLoct);
+    writeServoLoct();
   }
   /* USER CODE END 3 */
 }

@@ -22,7 +22,6 @@
 
 /* USER CODE BEGIN 0 */
 
-
 extern char temperatureOutput[8];
 
 extern char xAccelOutput[8];
@@ -169,7 +168,7 @@ void MX_TIM3_Init(void)
 
   /* USER CODE END TIM3_Init 1 */
   htim3.Instance = TIM3;
-  htim3.Init.Prescaler = 48-1;
+  htim3.Init.Prescaler = 480-1;
   htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim3.Init.Period = 1000-1;
   htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
@@ -274,7 +273,7 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* tim_baseHandle)
     __HAL_RCC_TIM3_CLK_ENABLE();
 
     /* TIM3 interrupt Init */
-    HAL_NVIC_SetPriority(TIM3_IRQn, 1, 0);
+    HAL_NVIC_SetPriority(TIM3_IRQn, 2, 0);
     HAL_NVIC_EnableIRQ(TIM3_IRQn);
   /* USER CODE BEGIN TIM3_MspInit 1 */
 
@@ -384,15 +383,16 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   if(htim -> Instance == TIM3)
   {
     gyroGetData();
-    char data[83] = {0};
-    static uint16_t i = 0;
-    if(i > 2000)
-    {
-      HAL_TIM_Base_Stop_IT(&htim3);
-    }
-    sprintf(data, "%4d  %8d   %8d   %8d   %8d   %8d   %8d   %8d\n", i, xAccelData, yAccelData, zAccelData, xGyroData, yGyroData, zGyroData, temperatureData);
-    HAL_UART_Transmit(&huart2, (uint8_t*)data, sizeof(data), 0xff);
-    i ++;
+    gyroToServo();
+    //char data[120] = {0};
+    //static uint16_t i = 0;
+    //if(i >= 10000)
+    //{
+    //  HAL_TIM_Base_Stop_IT(&htim3);
+    //}
+    //sprintf(data, "%4d  %8s   %8s   %8s   %8s   %8s   %8s   %8s\n", i, xAccelOutput, yAccelOutput, zAccelOutput, xGyroOutput, yGyroOutput, zGyroOutput, temperatureOutput);
+    //HAL_UART_Transmit(&huart2, (uint8_t*)data, sizeof(data), 0xff);
+    //i ++;
   }
 
 

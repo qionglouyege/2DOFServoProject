@@ -37,13 +37,11 @@
 /*define macro with parameter*/
 
 #define MPU_I2C1_WRITE(REGISTER_ADDR, DATA_BUFFER) HAL_I2C_Mem_Write(&hi2c1, WHO_AM_I, REGISTER_ADDR, 1, DATA_BUFFER, 1, 1000)
-#define MPU_I2C1_READ(REGISTER_ADDR, DATA_BUFFER) HAL_I2C_Mem_Read(&hi2c1, WHO_AM_I, REGISTER_ADDR, 1, DATA_BUFFER, 1, 0xff)
+#define MPU_I2C1_READ(REGISTER_ADDR, DATA_BUFFER) HAL_I2C_Mem_Read(&hi2c1, WHO_AM_I, REGISTER_ADDR, 1, DATA_BUFFER, 1, 0xf)
 
 void gyroInit(void);
-void dmpInit(void);
-
 void gyroGetData(void);
-void dmpGetData(void);
+void gyroToServo(void);
 
 void my_sprintfloat(char*, float);
 
