@@ -2,7 +2,7 @@
 #include "servo.h"
 #include "tim.h"
 
-/*servoLoct[0] is yaw, servoLoct[1] is pitch.*/
+/*servoLoct[0] is yaw[A10], servoLoct[1] is pitch[A11].*/
 float servoLoct[2] = {1000, 1000};
 
 void initServoLoct(void)

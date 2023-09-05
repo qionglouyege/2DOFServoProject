@@ -98,7 +98,7 @@ int main(void)
   MX_TIM4_Init();
   /* USER CODE BEGIN 2 */
 
-  gyroInit();
+  //gyroInit();
   infStateInit();
   initServoLoct();
 
@@ -118,6 +118,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+    HAL_UART_Receive_IT(&huart2, &);
     infImplement();
     writeServoLoct();
   }

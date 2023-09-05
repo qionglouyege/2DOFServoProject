@@ -213,7 +213,7 @@ void infImplement()
       for(; repeatTimes > 0; )
       {
         (repeatTimes) --;
-        *(servoLoct + 0) -= 25;
+        *(servoLoct + 0) -= 20;
       }
         break;            
 
@@ -221,7 +221,7 @@ void infImplement()
       for(; repeatTimes > 0;)
       {
         (repeatTimes) --;
-        *(servoLoct + 0) += 25;
+        *(servoLoct + 0) += 20;
       }
         break;  
 
