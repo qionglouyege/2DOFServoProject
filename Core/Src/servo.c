@@ -22,3 +22,19 @@ void writeServoLoct(void)
     __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_3, (uint16_t)*(servoLoct + 0));
     __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_4, (uint16_t)*(servoLoct + 1));
 }
+
+
+/** 
+ * @brief Adjust Servo position, delete position error via PID control.
+ * @param error Get Picture capture position error.
+ * @return Servo need to add or sub location.*/
+float adjustServoViaError(int8_t error)
+{
+  static int8_t errorLast = 0;
+  static float errorI = 0;
+  errorI += error * COE_I;
+  float errorP = error * COE_P;
+  float errorD = (error - errorLast) * COE_D;
+
+  return errorP + errorI + errorD;
+}

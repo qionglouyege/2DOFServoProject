@@ -1,0 +1,374 @@
+ARM GAS  C:\Users\18144\AppData\Local\Temp\ccyYHfGx.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.arch armv7-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"myfunc.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.global	__aeabi_fcmpgt
+  18              		.global	__aeabi_f2d
+  19              		.global	__aeabi_d2uiz
+  20              		.global	__aeabi_fadd
+  21              		.global	__aeabi_i2f
+  22              		.global	__aeabi_fsub
+  23              		.global	__aeabi_fmul
+  24              		.section	.rodata.my_sprintfloat.str1.4,"aMS",%progbits,1
+  25              		.align	2
+  26              	.LC0:
+  27 0000 2B25642E 		.ascii	"+%d.%03d\000"
+  27      25303364 
+  27      00
+  28              		.global	__aeabi_fcmplt
+  29 0009 000000   		.align	2
+  30              	.LC1:
+  31 000c 2D25642E 		.ascii	"-%d.%03d\000"
+  31      25303364 
+  31      00
+  32 0015 000000   		.align	2
+  33              	.LC2:
+  34 0018 302E3030 		.ascii	"0.000\000"
+  34      3000
+  35              		.section	.text.my_sprintfloat,"ax",%progbits
+  36              		.align	1
+  37              		.global	my_sprintfloat
+  38              		.syntax unified
+  39              		.thumb
+  40              		.thumb_func
+  42              	my_sprintfloat:
+  43              	.LVL0:
+  44              	.LFB68:
+  45              		.file 1 "Core/Src/myfunc.c"
+   1:Core/Src/myfunc.c **** #include "myfunc.h"
+   2:Core/Src/myfunc.c **** #include "main.h"
+   3:Core/Src/myfunc.c **** /**
+   4:Core/Src/myfunc.c ****  * @brief STM32 sprinf() cannot accept %f, so THIS is a substituted scheme.
+   5:Core/Src/myfunc.c ****  * @warning only can output pure float number. String array 8 enum at least.
+   6:Core/Src/myfunc.c **** */
+   7:Core/Src/myfunc.c **** void my_sprintfloat(char* string, float data)
+   8:Core/Src/myfunc.c **** {
+ARM GAS  C:\Users\18144\AppData\Local\Temp\ccyYHfGx.s 			page 2
+
+
+  46              		.loc 1 8 1 view -0
+  47              		.cfi_startproc
+  48              		@ args = 0, pretend = 0, frame = 0
+  49              		@ frame_needed = 0, uses_anonymous_args = 0
+  50              		.loc 1 8 1 is_stmt 0 view .LVU1
+  51 0000 70B5     		push	{r4, r5, r6, lr}
+  52              	.LCFI0:
+  53              		.cfi_def_cfa_offset 16
+  54              		.cfi_offset 4, -16
+  55              		.cfi_offset 5, -12
+  56              		.cfi_offset 6, -8
+  57              		.cfi_offset 14, -4
+  58 0002 0546     		mov	r5, r0
+  59 0004 0C46     		mov	r4, r1
+   9:Core/Src/myfunc.c ****   if(data > 0)
+  60              		.loc 1 9 3 is_stmt 1 view .LVU2
+  61              		.loc 1 9 5 is_stmt 0 view .LVU3
+  62 0006 0021     		movs	r1, #0
+  63              	.LVL1:
+  64              		.loc 1 9 5 view .LVU4
+  65 0008 2046     		mov	r0, r4
+  66              	.LVL2:
+  67              		.loc 1 9 5 view .LVU5
+  68 000a FFF7FEFF 		bl	__aeabi_fcmpgt
+  69              	.LVL3:
+  70 000e 50B9     		cbnz	r0, .L12
+  10:Core/Src/myfunc.c ****   {
+  11:Core/Src/myfunc.c ****     uint16_t integralPart = ceil(data);
+  12:Core/Src/myfunc.c ****     uint16_t fractionalPart = ceil((data + 1 - integralPart) * 1000);
+  13:Core/Src/myfunc.c ****     sprintf(string, "+%d.%03d", integralPart - 1, fractionalPart);
+  14:Core/Src/myfunc.c ****   }
+  15:Core/Src/myfunc.c ****   else if(data < 0)
+  71              		.loc 1 15 8 is_stmt 1 view .LVU6
+  72              		.loc 1 15 10 is_stmt 0 view .LVU7
+  73 0010 0021     		movs	r1, #0
+  74 0012 2046     		mov	r0, r4
+  75 0014 FFF7FEFF 		bl	__aeabi_fcmplt
+  76              	.LVL4:
+  77 0018 50BB     		cbnz	r0, .L13
+  16:Core/Src/myfunc.c ****   {
+  17:Core/Src/myfunc.c ****     data = fabs(data);
+  18:Core/Src/myfunc.c ****     uint16_t integralPart = ceil(data);
+  19:Core/Src/myfunc.c ****     uint16_t fractionalPart = ceil((data + 1 - integralPart) * 1000);
+  20:Core/Src/myfunc.c ****     sprintf(string, "-%d.%03d", integralPart - 1, fractionalPart);
+  21:Core/Src/myfunc.c ****   }
+  22:Core/Src/myfunc.c ****   else
+  23:Core/Src/myfunc.c ****   {
+  24:Core/Src/myfunc.c ****     sprintf(string, "0.000");
+  78              		.loc 1 24 5 is_stmt 1 view .LVU8
+  79 001a 294B     		ldr	r3, .L14
+  80 001c 1868     		ldr	r0, [r3]
+  81 001e 2860     		str	r0, [r5]	@ unaligned
+  82 0020 9B88     		ldrh	r3, [r3, #4]	@ unaligned
+  83 0022 AB80     		strh	r3, [r5, #4]	@ unaligned
+  25:Core/Src/myfunc.c ****   }
+  26:Core/Src/myfunc.c **** }
+  84              		.loc 1 26 1 is_stmt 0 view .LVU9
+ARM GAS  C:\Users\18144\AppData\Local\Temp\ccyYHfGx.s 			page 3
+
+
+  85 0024 23E0     		b	.L1
+  86              	.L12:
+  87              	.LBB2:
+  11:Core/Src/myfunc.c ****     uint16_t fractionalPart = ceil((data + 1 - integralPart) * 1000);
+  88              		.loc 1 11 5 is_stmt 1 view .LVU10
+  11:Core/Src/myfunc.c ****     uint16_t fractionalPart = ceil((data + 1 - integralPart) * 1000);
+  89              		.loc 1 11 29 is_stmt 0 view .LVU11
+  90 0026 2046     		mov	r0, r4
+  91 0028 FFF7FEFF 		bl	__aeabi_f2d
+  92              	.LVL5:
+  93 002c FFF7FEFF 		bl	ceil
+  94              	.LVL6:
+  11:Core/Src/myfunc.c ****     uint16_t fractionalPart = ceil((data + 1 - integralPart) * 1000);
+  95              		.loc 1 11 14 view .LVU12
+  96 0030 FFF7FEFF 		bl	__aeabi_d2uiz
+  97              	.LVL7:
+  98 0034 86B2     		uxth	r6, r0
+  99              	.LVL8:
+  12:Core/Src/myfunc.c ****     sprintf(string, "+%d.%03d", integralPart - 1, fractionalPart);
+ 100              		.loc 1 12 5 is_stmt 1 view .LVU13
+  12:Core/Src/myfunc.c ****     sprintf(string, "+%d.%03d", integralPart - 1, fractionalPart);
+ 101              		.loc 1 12 42 is_stmt 0 view .LVU14
+ 102 0036 4FF07E51 		mov	r1, #1065353216
+ 103 003a 2046     		mov	r0, r4
+ 104 003c FFF7FEFF 		bl	__aeabi_fadd
+ 105              	.LVL9:
+ 106 0040 0446     		mov	r4, r0
+ 107              	.LVL10:
+  12:Core/Src/myfunc.c ****     sprintf(string, "+%d.%03d", integralPart - 1, fractionalPart);
+ 108              		.loc 1 12 46 view .LVU15
+ 109 0042 3046     		mov	r0, r6
+ 110 0044 FFF7FEFF 		bl	__aeabi_i2f
+ 111              	.LVL11:
+ 112 0048 0146     		mov	r1, r0
+ 113 004a 2046     		mov	r0, r4
+ 114 004c FFF7FEFF 		bl	__aeabi_fsub
+ 115              	.LVL12:
+  12:Core/Src/myfunc.c ****     sprintf(string, "+%d.%03d", integralPart - 1, fractionalPart);
+ 116              		.loc 1 12 62 view .LVU16
+ 117 0050 1C49     		ldr	r1, .L14+4
+ 118 0052 FFF7FEFF 		bl	__aeabi_fmul
+ 119              	.LVL13:
+  12:Core/Src/myfunc.c ****     sprintf(string, "+%d.%03d", integralPart - 1, fractionalPart);
+ 120              		.loc 1 12 31 view .LVU17
+ 121 0056 FFF7FEFF 		bl	__aeabi_f2d
+ 122              	.LVL14:
+ 123 005a FFF7FEFF 		bl	ceil
+ 124              	.LVL15:
+  12:Core/Src/myfunc.c ****     sprintf(string, "+%d.%03d", integralPart - 1, fractionalPart);
+ 125              		.loc 1 12 14 view .LVU18
+ 126 005e FFF7FEFF 		bl	__aeabi_d2uiz
+ 127              	.LVL16:
+  13:Core/Src/myfunc.c ****   }
+ 128              		.loc 1 13 5 is_stmt 1 view .LVU19
+ 129 0062 83B2     		uxth	r3, r0
+ 130 0064 721E     		subs	r2, r6, #1
+ 131 0066 1849     		ldr	r1, .L14+8
+ARM GAS  C:\Users\18144\AppData\Local\Temp\ccyYHfGx.s 			page 4
+
+
+ 132 0068 2846     		mov	r0, r5
+ 133              	.LVL17:
+  13:Core/Src/myfunc.c ****   }
+ 134              		.loc 1 13 5 is_stmt 0 view .LVU20
+ 135 006a FFF7FEFF 		bl	sprintf
+ 136              	.LVL18:
+ 137              	.L1:
+  13:Core/Src/myfunc.c ****   }
+ 138              		.loc 1 13 5 view .LVU21
+ 139              	.LBE2:
+ 140              		.loc 1 26 1 view .LVU22
+ 141 006e 70BD     		pop	{r4, r5, r6, pc}
+ 142              	.LVL19:
+ 143              	.L13:
+ 144              	.LBB3:
+  17:Core/Src/myfunc.c ****     uint16_t integralPart = ceil(data);
+ 145              		.loc 1 17 5 is_stmt 1 view .LVU23
+  17:Core/Src/myfunc.c ****     uint16_t integralPart = ceil(data);
+ 146              		.loc 1 17 10 is_stmt 0 view .LVU24
+ 147 0070 24F00044 		bic	r4, r4, #-2147483648
+ 148              	.LVL20:
+  18:Core/Src/myfunc.c ****     uint16_t fractionalPart = ceil((data + 1 - integralPart) * 1000);
+ 149              		.loc 1 18 5 is_stmt 1 view .LVU25
+  18:Core/Src/myfunc.c ****     uint16_t fractionalPart = ceil((data + 1 - integralPart) * 1000);
+ 150              		.loc 1 18 29 is_stmt 0 view .LVU26
+ 151 0074 2046     		mov	r0, r4
+ 152 0076 FFF7FEFF 		bl	__aeabi_f2d
+ 153              	.LVL21:
+ 154 007a FFF7FEFF 		bl	ceil
+ 155              	.LVL22:
+  18:Core/Src/myfunc.c ****     uint16_t fractionalPart = ceil((data + 1 - integralPart) * 1000);
+ 156              		.loc 1 18 14 view .LVU27
+ 157 007e FFF7FEFF 		bl	__aeabi_d2uiz
+ 158              	.LVL23:
+ 159 0082 86B2     		uxth	r6, r0
+ 160              	.LVL24:
+  19:Core/Src/myfunc.c ****     sprintf(string, "-%d.%03d", integralPart - 1, fractionalPart);
+ 161              		.loc 1 19 5 is_stmt 1 view .LVU28
+  19:Core/Src/myfunc.c ****     sprintf(string, "-%d.%03d", integralPart - 1, fractionalPart);
+ 162              		.loc 1 19 42 is_stmt 0 view .LVU29
+ 163 0084 4FF07E51 		mov	r1, #1065353216
+ 164 0088 2046     		mov	r0, r4
+ 165 008a FFF7FEFF 		bl	__aeabi_fadd
+ 166              	.LVL25:
+ 167 008e 0446     		mov	r4, r0
+ 168              	.LVL26:
+  19:Core/Src/myfunc.c ****     sprintf(string, "-%d.%03d", integralPart - 1, fractionalPart);
+ 169              		.loc 1 19 46 view .LVU30
+ 170 0090 3046     		mov	r0, r6
+ 171 0092 FFF7FEFF 		bl	__aeabi_i2f
+ 172              	.LVL27:
+ 173 0096 0146     		mov	r1, r0
+ 174 0098 2046     		mov	r0, r4
+ 175 009a FFF7FEFF 		bl	__aeabi_fsub
+ 176              	.LVL28:
+  19:Core/Src/myfunc.c ****     sprintf(string, "-%d.%03d", integralPart - 1, fractionalPart);
+ 177              		.loc 1 19 62 view .LVU31
+ARM GAS  C:\Users\18144\AppData\Local\Temp\ccyYHfGx.s 			page 5
+
+
+ 178 009e 0949     		ldr	r1, .L14+4
+ 179 00a0 FFF7FEFF 		bl	__aeabi_fmul
+ 180              	.LVL29:
+  19:Core/Src/myfunc.c ****     sprintf(string, "-%d.%03d", integralPart - 1, fractionalPart);
+ 181              		.loc 1 19 31 view .LVU32
+ 182 00a4 FFF7FEFF 		bl	__aeabi_f2d
+ 183              	.LVL30:
+ 184 00a8 FFF7FEFF 		bl	ceil
+ 185              	.LVL31:
+  19:Core/Src/myfunc.c ****     sprintf(string, "-%d.%03d", integralPart - 1, fractionalPart);
+ 186              		.loc 1 19 14 view .LVU33
+ 187 00ac FFF7FEFF 		bl	__aeabi_d2uiz
+ 188              	.LVL32:
+  20:Core/Src/myfunc.c ****   }
+ 189              		.loc 1 20 5 is_stmt 1 view .LVU34
+ 190 00b0 83B2     		uxth	r3, r0
+ 191 00b2 721E     		subs	r2, r6, #1
+ 192 00b4 0549     		ldr	r1, .L14+12
+ 193 00b6 2846     		mov	r0, r5
+ 194              	.LVL33:
+  20:Core/Src/myfunc.c ****   }
+ 195              		.loc 1 20 5 is_stmt 0 view .LVU35
+ 196 00b8 FFF7FEFF 		bl	sprintf
+ 197              	.LVL34:
+  20:Core/Src/myfunc.c ****   }
+ 198              		.loc 1 20 5 view .LVU36
+ 199              	.LBE3:
+ 200 00bc D7E7     		b	.L1
+ 201              	.L15:
+ 202 00be 00BF     		.align	2
+ 203              	.L14:
+ 204 00c0 18000000 		.word	.LC2
+ 205 00c4 00007A44 		.word	1148846080
+ 206 00c8 00000000 		.word	.LC0
+ 207 00cc 0C000000 		.word	.LC1
+ 208              		.cfi_endproc
+ 209              	.LFE68:
+ 211              		.section	.text.bulingbuling,"ax",%progbits
+ 212              		.align	1
+ 213              		.global	bulingbuling
+ 214              		.syntax unified
+ 215              		.thumb
+ 216              		.thumb_func
+ 218              	bulingbuling:
+ 219              	.LFB69:
+  27:Core/Src/myfunc.c **** 
+  28:Core/Src/myfunc.c **** void bulingbuling()
+  29:Core/Src/myfunc.c **** {
+ 220              		.loc 1 29 1 is_stmt 1 view -0
+ 221              		.cfi_startproc
+ 222              		@ args = 0, pretend = 0, frame = 0
+ 223              		@ frame_needed = 0, uses_anonymous_args = 0
+ 224 0000 10B5     		push	{r4, lr}
+ 225              	.LCFI1:
+ 226              		.cfi_def_cfa_offset 8
+ 227              		.cfi_offset 4, -8
+ 228              		.cfi_offset 14, -4
+ARM GAS  C:\Users\18144\AppData\Local\Temp\ccyYHfGx.s 			page 6
+
+
+  30:Core/Src/myfunc.c **** 
+  31:Core/Src/myfunc.c ****   HAL_GPIO_WritePin(LED_PIN_GPIO_Port, LED_PIN_Pin, SET);
+ 229              		.loc 1 31 3 view .LVU38
+ 230 0002 0A4C     		ldr	r4, .L18
+ 231 0004 0122     		movs	r2, #1
+ 232 0006 4FF48071 		mov	r1, #256
+ 233 000a 2046     		mov	r0, r4
+ 234 000c FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 235              	.LVL35:
+  32:Core/Src/myfunc.c ****   HAL_Delay(200);
+ 236              		.loc 1 32 3 view .LVU39
+ 237 0010 C820     		movs	r0, #200
+ 238 0012 FFF7FEFF 		bl	HAL_Delay
+ 239              	.LVL36:
+  33:Core/Src/myfunc.c ****   HAL_GPIO_WritePin(LED_PIN_GPIO_Port, LED_PIN_Pin, RESET);
+ 240              		.loc 1 33 3 view .LVU40
+ 241 0016 0022     		movs	r2, #0
+ 242 0018 4FF48071 		mov	r1, #256
+ 243 001c 2046     		mov	r0, r4
+ 244 001e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 245              	.LVL37:
+  34:Core/Src/myfunc.c ****   HAL_Delay(200);
+ 246              		.loc 1 34 3 view .LVU41
+ 247 0022 C820     		movs	r0, #200
+ 248 0024 FFF7FEFF 		bl	HAL_Delay
+ 249              	.LVL38:
+  35:Core/Src/myfunc.c **** }...
+ 250              		.loc 1 35 1 is_stmt 0 view .LVU42
+ 251 0028 10BD     		pop	{r4, pc}
+ 252              	.L19:
+ 253 002a 00BF     		.align	2
+ 254              	.L18:
+ 255 002c 00080140 		.word	1073809408
+ 256              		.cfi_endproc
+ 257              	.LFE69:
+ 259              		.text
+ 260              	.Letext0:
+ 261              		.file 2 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2021.10\\arm-none-eabi\\include\\
+ 262              		.file 3 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2021.10\\arm-none-eabi\\include\\
+ 263              		.file 4 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
+ 264              		.file 5 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h"
+ 265              		.file 6 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ 266              		.file 7 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2021.10\\arm-none-eabi\\include\\
+ 267              		.file 8 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2021.10\\arm-none-eabi\\include\\
+ 268              		.file 9 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h"
+ARM GAS  C:\Users\18144\AppData\Local\Temp\ccyYHfGx.s 			page 7
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 myfunc.c
+C:\Users\18144\AppData\Local\Temp\ccyYHfGx.s:25     .rodata.my_sprintfloat.str1.4:00000000 $d
+C:\Users\18144\AppData\Local\Temp\ccyYHfGx.s:36     .text.my_sprintfloat:00000000 $t
+C:\Users\18144\AppData\Local\Temp\ccyYHfGx.s:42     .text.my_sprintfloat:00000000 my_sprintfloat
+C:\Users\18144\AppData\Local\Temp\ccyYHfGx.s:204    .text.my_sprintfloat:000000c0 $d
+C:\Users\18144\AppData\Local\Temp\ccyYHfGx.s:212    .text.bulingbuling:00000000 $t
+C:\Users\18144\AppData\Local\Temp\ccyYHfGx.s:218    .text.bulingbuling:00000000 bulingbuling
+C:\Users\18144\AppData\Local\Temp\ccyYHfGx.s:255    .text.bulingbuling:0000002c $d
+
+UNDEFINED SYMBOLS
+__aeabi_fcmpgt
+__aeabi_f2d
+__aeabi_d2uiz
+__aeabi_fadd
+__aeabi_i2f
+__aeabi_fsub
+__aeabi_fmul
+__aeabi_fcmplt
+ceil
+sprintf
+HAL_GPIO_WritePin
+HAL_Delay

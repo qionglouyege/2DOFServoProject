@@ -28,6 +28,7 @@
 
 #include "servo.h"
 #include "infremote.h"
+#include "myfunc.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -48,6 +49,8 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+
+extern uint8_t usartBuffer[8];
 
 /* USER CODE END PV */
 
@@ -94,11 +97,21 @@ int main(void)
   MX_TIM2_Init();
   MX_I2C1_Init();
   MX_USART2_UART_Init();
-  MX_TIM3_Init();
+  //MX_TIM3_Init();
   MX_TIM4_Init();
   /* USER CODE BEGIN 2 */
 
   //gyroInit();
+  bulingbuling();
+ 
+  int b = 2314;
+  char spring[8] = {0};
+
+  sprintf(spring, "%d", b);
+  HAL_UART_Transmit(&huart2, (uint8_t*)spring, 8, 100);
+
+  bulingbuling();
+
   infStateInit();
   initServoLoct();
 
@@ -108,7 +121,7 @@ int main(void)
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_4);
   writeServoLoct();
-  
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -118,7 +131,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    HAL_UART_Receive_IT(&huart2, &);
+    HAL_UART_Receive_IT(&huart2, usartBuffer, 8);
     infImplement();
     writeServoLoct();
   }

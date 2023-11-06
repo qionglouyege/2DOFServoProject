@@ -22,6 +22,11 @@
 #include "stm32f1xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+
+#include "servo.h"
+#include "myfunc.h"
+#include <stdio.h>
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -42,7 +47,8 @@
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
 
-char usartBuffer[8];
+uint8_t usartBuffer[8];
+extern float servoLoct[2]; //extern servoloct. for control servo.
 
 /* USER CODE END PV */
 
@@ -245,12 +251,34 @@ void USART2_IRQHandler(void)
 
 /* USER CODE BEGIN 1 */
 
-HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
-  if(huart->Instance == &huart2)
+  if(huart == &huart2)
   {
-    
+    //servo[0]:yaw, servo[1]:pitch
+    servoLoct[0] -= 0.1 * (int8_t)usartBuffer[1];
+    servoLoct[1] -= 0.1 * (int8_t)usartBuffer[2];
+    HAL_UART_Transmit(&huart2, usartBuffer, 8, 10); //This line for retransmit received data.
   }
+
+  HAL_UART_Receive_IT(&huart2, usartBuffer, 8);
+}
+
+/**
+ * @brief analysis received data, storage the data to another int array.  
+ * @param usartBuffer usart array buffer, 8 char(uint_8) in it.
+ * @param targetBuffer int array, 2 uint_8 int in it.
+ * @return function state.
+*/
+int8_t usartBufAnalysis(uint8_t* usartBuffer, int8_t* targetBuffer)
+{
+  if(*(usartBuffer + 0) == 0xAA)
+  {
+    *(targetBuffer + 0) = *(int8_t*)(usartBuffer + 1);
+    *(targetBuffer + 1) = *(int8_t*)(usartBuffer + 2);
+    return 0;
+  }
+  else return -1;
 }
 
 /* USER CODE END 1 */

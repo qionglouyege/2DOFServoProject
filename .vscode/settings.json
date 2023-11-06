@@ -1,8 +1,11 @@
 {
     "files.associations": {
-        "infremote.h": "c",
-        "tim.h": "c",
-        "main.h": "c"
+      "infremote.h": "c",
+      "tim.h": "c",
+      "main.h": "c",
+      "stm32f1xx_it.h": "c",
+      "servo.h": "c",
+      "myfunc.h": "c"
     },
-    "cortex-debug.variableUseNaturalFormat": true
+    "cortex-debug.variableUseNaturalFormat": false
 }

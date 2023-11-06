@@ -61,7 +61,8 @@ Core/Src/servo.c \
 Core/Src/i2c.c \
 Core/Src/usart.c \
 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_i2c.c \
-Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.c
+Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.c \
+Core/Src/myfunc.c
 
 # ASM sources
 ASM_SOURCES =  \

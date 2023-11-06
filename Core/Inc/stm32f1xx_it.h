@@ -60,6 +60,8 @@ void TIM3_IRQHandler(void);
 void USART2_IRQHandler(void);
 /* USER CODE BEGIN EFP */
 
+int8_t usartBufAnalysis(uint8_t* usartBuffer, int8_t* targetBuffer);
+
 /* USER CODE END EFP */
 
 #ifdef __cplusplus

@@ -382,8 +382,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
   if(htim -> Instance == TIM3)
   {
-    gyroGetData();
-    gyroToServo();
+    //gyroGetData();
+    //gyroToServo();
     //char data[120] = {0};
     //static uint16_t i = 0;
     //if(i >= 10000)
